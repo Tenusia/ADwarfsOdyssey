@@ -8,13 +8,20 @@ public class Weapon : MonoBehaviour
     Rigidbody2D myRigidBody;
     PlayerMovement player;
     float xSpeed;
+    AudioPlayer audioPlayer;
     
+
+    void Awake()
+    {
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+        myRigidBody = GetComponent<Rigidbody2D>();
+        player = FindObjectOfType<PlayerMovement>();   
+    }
 
     void Start()
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
-        player = FindObjectOfType<PlayerMovement>();
         xSpeed = player.transform.localScale.x * bulletSpeed;
+        audioPlayer.PlayAxeThrowClip();
     }
 
     void Update()
@@ -24,6 +31,7 @@ public class Weapon : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
+        audioPlayer.PlayAxeHitClip();
         Destroy(gameObject);
     }
 

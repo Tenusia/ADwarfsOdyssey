@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   destroyObjectSpeed: 2
+  applyCameraShake: 1
 --- !u!61 &415810359
 BoxCollider2D:
   m_ObjectHideFlags: 0

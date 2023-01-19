@@ -195,10 +195,12 @@ MonoBehaviour:
   jumpSpeed: 12
   climbSpeed: 5
   deathKick: {x: -3, y: 5}
-  waitTime: 2
+  waitTimeFreezeMovement: 1.5
+  waitTimeReload: 1.8
   deathTrailEffect: {fileID: 5916553565544070047}
   weapon: {fileID: 5889834397352111176, guid: ed607b675bc294344a2f8df2f7089ec2, type: 3}
   hand: {fileID: 1030329150798054208}
+  applyCameraShake: 1
 --- !u!61 &4624827761440195411
 BoxCollider2D:
   m_ObjectHideFlags: 0

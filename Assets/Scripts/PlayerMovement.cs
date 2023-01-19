@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
+    AudioPlayer audioPlayer;
+    SpriteScroller spriteScroller;
     
 
     [SerializeField] float runSpeed =10f;
@@ -22,17 +24,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] ParticleSystem deathTrailEffect;
     [SerializeField] GameObject weapon;
     [SerializeField] Transform hand;
-
+    
     float startGravityScale;
 
     bool isAlive = true;
-
-    void Start()
+    
+    void Awake() 
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+        spriteScroller = FindObjectOfType<SpriteScroller>();
+    }
+
+    void Start()
+    {
         startGravityScale = myRigidbody.gravityScale;
         deathTrailEffect.Stop();
     }
@@ -50,6 +58,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) {return;}
         moveInput = value.Get<Vector2>();
+        spriteScroller.ProcessPlayerInput(moveInput);
+    }
+
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
     }
 
     void OnJump(InputValue value)
@@ -57,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isAlive) {return;}
         if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {return;}
         // OPTIONAL. Add option to jump from ladder.
+        // OPTIONAL. Add jump SFX
         
         if(value.isPressed)
         {
@@ -80,7 +95,9 @@ public class PlayerMovement : MonoBehaviour
         myRigidbody.velocity = playerVelocity;
 
         bool playerIsRunning = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;   
-        myAnimator.SetBool("isRunning", playerIsRunning);
+        myAnimator.SetBool("isRunning", playerIsRunning);        
+            //FIX Footstep SFX
+            //audioPlayer.PlayPlayerWalkingClip();
     }
 
     void FlipSprite()
@@ -116,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAlive=false;
             myAnimator.SetTrigger("Dying");
+            audioPlayer.PlayPlayerDeathClip();
             myRigidbody.velocity = deathKick;
             deathTrailEffect.Play();
             StartCoroutine(FreezeReload());

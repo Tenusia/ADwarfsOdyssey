@@ -7,19 +7,25 @@ public class EnemyMovement : MonoBehaviour
       
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float destroyObjectSpeed = 3f;
-    
+        
     Rigidbody2D myRigidbody;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myScopeCollider; 
     Animator myAnimator;
+    AudioPlayer audioPlayer;
     bool isAlive;
 
-    void Start()
+    void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myScopeCollider = GetComponent<BoxCollider2D>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+    }
+    
+    void Start()
+    {
         isAlive = true;
     }
 
@@ -32,7 +38,6 @@ public class EnemyMovement : MonoBehaviour
     {
         moveSpeed = -moveSpeed;
         FlipEnemyFacing();
-        //Optional make sure no turn around on pickups
     }
 
     void FlipEnemyFacing()
@@ -46,6 +51,7 @@ public class EnemyMovement : MonoBehaviour
         {
             if(!isAlive){return;}
             myAnimator.SetTrigger("gotHit");
+            audioPlayer.PlayEnemyDeathClip();
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             myBodyCollider.enabled = false;
             myScopeCollider.enabled = false;
