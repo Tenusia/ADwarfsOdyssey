@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
     AudioPlayer audioPlayer;
-    SpriteScroller spriteScroller;
+    //SpriteScroller spriteScroller;
     
 
     [SerializeField] float runSpeed =10f;
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
-        spriteScroller = FindObjectOfType<SpriteScroller>();
+        //spriteScroller = FindObjectOfType<SpriteScroller>();
     }
 
     void Start()
@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) {return;}
         Run();
+        Bounce();
         FlipSprite();
         ClimbLadder();
         Die();
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) {return;}
         moveInput = value.Get<Vector2>();
-        spriteScroller.ProcessPlayerInput(moveInput);
+        //spriteScroller.ProcessPlayerInput(moveInput); For use with spriteScoller
     }
 
     public Vector2 GetMoveInput()
@@ -69,12 +70,12 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         if (!isAlive) {return;}
-        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {return;}
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Climbing"))) {return;}
         // OPTIONAL. Add option to jump from ladder.
-        // OPTIONAL. Add jump SFX
-        
+                
         if(value.isPressed)
         {
+            audioPlayer.PlayPlayerJumpClip();
             myRigidbody.velocity += new Vector2 (0f, jumpSpeed);
         }
     }
@@ -86,6 +87,14 @@ public class PlayerMovement : MonoBehaviour
         if(value.isPressed)
         {
         Instantiate(weapon, hand.position, transform.rotation);
+        }
+    }
+
+    void Bounce()
+    {
+        if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Bouncing")))
+        {
+            audioPlayer.PlayBounceClip();
         }
     }
 

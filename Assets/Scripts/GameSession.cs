@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLives = 3;
-    [SerializeField] int score = 0;
-    
+    int score = 0;
+        
     [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
 
 
     void Awake()
@@ -29,8 +30,9 @@ public class GameSession : MonoBehaviour
 
     void Start()
     {
-        livesText.text = playerLives.ToString();
-        scoreText.text = score.ToString();
+        livesText.text = playerLives.ToString("Lives:\n00");
+        scoreText.text = score.ToString("Score:\n000000");
+        highScoreText.text = GetHighScore().ToString("High Score:\n000000");
     }
 
     public void ProcessPlayerDeath()
@@ -48,7 +50,19 @@ public class GameSession : MonoBehaviour
     public void ProcessPickup(int pointsToAdd)
     {
         score += pointsToAdd;
-        scoreText.text = score.ToString();
+        Mathf.Clamp(score, 0, int.MaxValue);
+        scoreText.text = score.ToString("Score:\n000000");
+        
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            highScoreText.text = GetHighScore().ToString("High Score:\n000000");
+        }
+    }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt("HighScore");
     }
 
     void TakeLife()

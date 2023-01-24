@@ -46,21 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerWalking: {fileID: 8300000, guid: c83bfb8cc6d64ca42b30baf06a5a46a7, type: 3}
-  playerWalkingVolume: 1
+  playerWalkingVolume: 0.5
   playerDeath: {fileID: 8300000, guid: f1fbb014b3303a44984b081dbcff1ddf, type: 3}
-  playerDeathVolume: 1
-  playerJump: {fileID: 0}
-  playerJumpVolume: 1
+  playerDeathVolume: 0.5
+  playerJump: {fileID: 8300000, guid: 7cef0a20e76a1314692a0d1dd57df5ee, type: 3}
+  playerJumpVolume: 0.2
   axeThrowClip: {fileID: 8300000, guid: c60139851b5614e4f9253f577d84ccf7, type: 3}
-  axeThrowVolume: 0.496
+  axeThrowVolume: 0.5
   axeHitClip: {fileID: 8300000, guid: bb3b2b7859653084c8dc77216b6d1c74, type: 3}
-  axeHitVolume: 0.491
+  axeHitVolume: 0.5
   enemyDeathClip: {fileID: 8300000, guid: d41cb0ab6c6d3b74d94df351689a93da, type: 3}
-  enemyDeathVolume: 0.476
+  enemyDeathVolume: 0.5
   coinPickupClip: {fileID: 8300000, guid: 438fa81a02f4a904fa935fe4b5c323ec, type: 3}
   coinPickupVolume: 0.486
-  bounceClip: {fileID: 0}
-  bounceVolume: 1
+  bounceClip: {fileID: 8300000, guid: f18ab06ceccc9ef46ba8a54040897263, type: 3}
+  bounceVolume: 0.5
 --- !u!82 &890151322
 AudioSource:
   m_ObjectHideFlags: 0
