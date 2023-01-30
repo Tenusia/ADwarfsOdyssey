@@ -5,10 +5,12 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] float bulletSpeed = 1f;
+    [SerializeField] float autoDestroyTime = 3f;
     Rigidbody2D myRigidBody;
     PlayerMovement player;
     float xSpeed;
     AudioPlayer audioPlayer;
+
     
 
     void Awake()
@@ -24,6 +26,11 @@ public class Weapon : MonoBehaviour
         audioPlayer.PlayAxeThrowClip();
     }
 
+    void OnEnable() 
+    {
+        Invoke("Destroy", autoDestroyTime);
+    }
+
     void Update()
     {
         myRigidBody.velocity = new Vector2 (xSpeed, 0f);
@@ -36,6 +43,11 @@ public class Weapon : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other) 
+    {
+        Destroy(gameObject);
+    }
+
+    void Destroy()
     {
         Destroy(gameObject);
     }

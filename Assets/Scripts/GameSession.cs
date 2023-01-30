@@ -40,6 +40,7 @@ public class GameSession : MonoBehaviour
         if (playerLives > 1)
         {
             TakeLife();
+            livesText.text = playerLives.ToString("Lives:\n00");
         }
         else
         {
@@ -60,6 +61,13 @@ public class GameSession : MonoBehaviour
         }
     }
 
+    public void ProcessPickupLife(int livesToAdd)
+    {
+        playerLives += livesToAdd;
+        Mathf.Clamp(playerLives, 0, int.MaxValue);
+        livesText.text = playerLives.ToString("Lives:\n00");
+    }
+
     public int GetHighScore()
     {
         return PlayerPrefs.GetInt("HighScore");
@@ -77,6 +85,7 @@ public class GameSession : MonoBehaviour
     {
         FindObjectOfType<ScenePersist>().ResetScenePersist();
         SceneManager.LoadScene(0);
+        //Loop naar Game over screen
         Destroy(gameObject);
     }
 }

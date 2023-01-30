@@ -7,6 +7,9 @@ public class EnemyMovement : MonoBehaviour
       
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float destroyObjectSpeed = 3f;
+    [SerializeField] int pointValue = 100;
+    [SerializeField] float hitPoints = 3f;
+    
         
     Rigidbody2D myRigidbody;
     CapsuleCollider2D myBodyCollider;
@@ -14,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     Animator myAnimator;
     AudioPlayer audioPlayer;
     bool isAlive;
+    public bool bossIsAlive;
 
     void Awake()
     {
@@ -50,13 +54,25 @@ public class EnemyMovement : MonoBehaviour
         if(other.tag == "Weapon")
         {
             if(!isAlive){return;}
-            myAnimator.SetTrigger("gotHit");
-            audioPlayer.PlayEnemyDeathClip();
-            myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-            myBodyCollider.enabled = false;
-            myScopeCollider.enabled = false;
-            isAlive = false;
-            Destroy(gameObject,destroyObjectSpeed);
+            if(hitPoints > 1)
+            {
+                hitPoints -= 1;
+            }
+            else
+            {
+                if(bossIsAlive)
+                {
+                    bossIsAlive=false;
+                }
+                myAnimator.SetTrigger("gotHit");
+                audioPlayer.PlayEnemyDeathClip();
+                FindObjectOfType<GameSession>().ProcessPickup(pointValue);
+                myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+                myBodyCollider.enabled = false;
+                myScopeCollider.enabled = false;
+                isAlive = false;
+                Destroy(gameObject,destroyObjectSpeed);
+            }
         }
     }
 }

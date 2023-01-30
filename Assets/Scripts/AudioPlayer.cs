@@ -11,6 +11,8 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] [Range(0f,1f)] float playerDeathVolume = 1f;
     [SerializeField] AudioClip playerJump;
     [SerializeField] [Range(0f,1f)] float playerJumpVolume = 1f;
+    [SerializeField] AudioClip clearLevel;
+    [SerializeField] [Range(0f,1f)] float clearLevelVolume = 1f;
 
     [Header("Axe")]
     [SerializeField] AudioClip axeThrowClip;
@@ -25,6 +27,8 @@ public class AudioPlayer : MonoBehaviour
     [Header("Pickups")]
     [SerializeField] AudioClip coinPickupClip;
     [SerializeField] [Range(0f,1f)] float coinPickupVolume = 1f;
+    [SerializeField] AudioClip healthPickupClip;
+    [SerializeField] [Range(0f,1f)] float healthPickupVolume = 1f;
     [SerializeField] AudioClip bounceClip;
     [SerializeField] [Range(0f,1f)] float bounceVolume = 1f;
 
@@ -79,6 +83,16 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    public void PlayClearLevel()
+    {
+        if(clearLevel != null)
+        {
+            AudioSource.PlayClipAtPoint(clearLevel, 
+                                        Camera.main.transform.position, 
+                                        clearLevelVolume);
+        }
+    }
+
     public void PlayEnemyDeathClip()
     {
         if(enemyDeathClip != null)
@@ -96,6 +110,16 @@ public class AudioPlayer : MonoBehaviour
             AudioSource.PlayClipAtPoint(coinPickupClip, 
                                         Camera.main.transform.position, 
                                         coinPickupVolume);
+        }
+    }
+
+    public void PlayHealthPickupClip()
+    {
+        if(healthPickupClip != null)
+        {
+            AudioSource.PlayClipAtPoint(healthPickupClip, 
+                                        Camera.main.transform.position, 
+                                        healthPickupVolume);
         }
     }
 

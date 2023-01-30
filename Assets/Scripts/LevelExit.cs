@@ -6,12 +6,22 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     [SerializeField] float exitWaitDelayTime=1f;
+    AudioPlayer audioPlayer;
+    PlayerMovement playerMovement;
+    EnemyMovement enemyMovement;
+
+    void Awake() 
+    {
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+        enemyMovement = FindObjectOfType<EnemyMovement>();
+        //If no enemy -> causes crash
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag != "Player") {return;}
-        //ADD stop movement (or keep walking to the right)
-        //ADD play finish sound & Effects
+        if(enemyMovement.bossIsAlive) {return;}
+        audioPlayer.PlayClearLevel();
         StartCoroutine(LoadNextScene());
     }
 
@@ -25,6 +35,7 @@ public class LevelExit : MonoBehaviour
         {
             nextSceneIndex = 0;    
         }
+        
         FindObjectOfType<ScenePersist>().ResetScenePersist();
         SceneManager.LoadScene(nextSceneIndex);
     }  

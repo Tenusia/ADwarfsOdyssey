@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float waitTimeReload = 1.8f;
     [SerializeField] ParticleSystem deathTrailEffect;
     [SerializeField] GameObject weapon;
+    [SerializeField] int maxWeaponAmount = 3;
     [SerializeField] Transform hand;
     
     float startGravityScale;
@@ -86,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         
         if(value.isPressed)
         {
+        if (GameObject.FindGameObjectsWithTag("Weapon").Length >= maxWeaponAmount) {return;}
         Instantiate(weapon, hand.position, transform.rotation);
         }
     }
