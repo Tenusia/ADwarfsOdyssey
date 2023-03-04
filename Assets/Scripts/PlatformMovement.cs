@@ -30,4 +30,14 @@ public class PlatformMovement : MonoBehaviour
         Vector2 offset = movementVector * movementFactor;   // recalculated to go from 0 to 1
         transform.position = startingPosition + offset;
     }
+
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        other.collider.transform.SetParent(transform);
+    }
+
+    void OnCollisionExit2D(Collision2D other) 
+    {
+        other.collider.transform.SetParent(null);
+    }
 }

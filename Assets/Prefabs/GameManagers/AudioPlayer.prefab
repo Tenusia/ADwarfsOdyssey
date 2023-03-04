@@ -51,7 +51,7 @@ MonoBehaviour:
   playerDeathVolume: 0.5
   playerJump: {fileID: 8300000, guid: 7cef0a20e76a1314692a0d1dd57df5ee, type: 3}
   playerJumpVolume: 0.2
-  clearLevel: {fileID: 0}
+  clearLevel: {fileID: 8300000, guid: 63071c510f9a913469e7f3c1893e14de, type: 3}
   clearLevelVolume: 1
   axeThrowClip: {fileID: 8300000, guid: c60139851b5614e4f9253f577d84ccf7, type: 3}
   axeThrowVolume: 0.5
@@ -65,6 +65,7 @@ MonoBehaviour:
   healthPickupVolume: 0.5
   bounceClip: {fileID: 8300000, guid: f18ab06ceccc9ef46ba8a54040897263, type: 3}
   bounceVolume: 0.5
+  BGM: {fileID: 890151322}
 --- !u!82 &890151322
 AudioSource:
   m_ObjectHideFlags: 0
@@ -75,7 +76,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 645647329433b4e4095ab03e8ebf6d25, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4ae19c5ce791c404a884c3363f82aaf0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1

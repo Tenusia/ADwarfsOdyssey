@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  destroyObjectSpeed: 3
+  destroyObjectSpeed: 1
   pointValue: 100
   hitPoints: 1
+  bossIsAlive: 0
 --- !u!50 &1273341476952741419
 Rigidbody2D:
   serializedVersion: 4

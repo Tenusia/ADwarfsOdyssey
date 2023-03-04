@@ -14,9 +14,8 @@ public class GameSession : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
 
-
     void Awake()
-    {
+    {        
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
         if(numGameSessions > 1)
         {
@@ -33,6 +32,7 @@ public class GameSession : MonoBehaviour
         livesText.text = playerLives.ToString("Lives:\n00");
         scoreText.text = score.ToString("Score:\n000000");
         highScoreText.text = GetHighScore().ToString("High Score:\n000000");
+        
     }
 
     public void ProcessPlayerDeath()

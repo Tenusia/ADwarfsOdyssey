@@ -32,6 +32,9 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip bounceClip;
     [SerializeField] [Range(0f,1f)] float bounceVolume = 1f;
 
+    [Header("Background Music")]
+    public AudioSource BGM; 
+
     public void PlayPlayerWalkingClip()
     {
         if(playerWalking != null)
@@ -131,5 +134,12 @@ public class AudioPlayer : MonoBehaviour
                                         Camera.main.transform.position, 
                                         bounceVolume);
         }
+    }
+
+    public void ChangeBGM(AudioClip music)
+    {
+        BGM.Stop();
+        BGM.clip = music;
+        BGM.Play();
     }
 }

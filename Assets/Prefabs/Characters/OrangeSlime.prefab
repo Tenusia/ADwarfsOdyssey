@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  destroyObjectSpeed: 3
+  destroyObjectSpeed: 1
   pointValue: 300
   hitPoints: 3
   bossIsAlive: 0

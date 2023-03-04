@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform hand;
     
     float startGravityScale;
+    float startAngularDrag;
 
     bool isAlive = true;
     
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         startGravityScale = myRigidbody.gravityScale;
+        startAngularDrag = myRigidbody.angularDrag;
         deathTrailEffect.Stop();
     }
 
